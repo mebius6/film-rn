@@ -119,7 +119,7 @@ class ToastContainer extends Component {
     }
   };
 
-  componentWillReceiveProps = nextProps => {
+  UNSAFE_componentWillReceiveProps = nextProps => {
     if (nextProps.visible !== this.props.visible) {
       if (nextProps.visible) {
         clearTimeout(this._showTimeout);
@@ -135,7 +135,7 @@ class ToastContainer extends Component {
     }
   };
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     const {windowHeight, keyboardScreenY} = this.state;
     this._keyboardHeight = Math.max(windowHeight - keyboardScreenY, 0);
   }

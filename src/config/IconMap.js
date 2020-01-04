@@ -12,4 +12,5 @@ module.exports = {
   homeActive: 58983,
   arrowLeft: 58880,
   arrowRight: 58934,
+  spinner: 59321,
 };

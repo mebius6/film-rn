@@ -6,7 +6,7 @@ import Spinner from '../Libraries/Components/Spinner';
 import RootToast from '../Libraries/Components/Toast/index';
 import SearchBar from '../Libraries/Components/SearchBar';
 import RowItem from '../Libraries/Components/RowItem';
-
+import Tab from './Tab';
 module.exports = {
   Header,
   Icon,
@@ -15,5 +15,6 @@ module.exports = {
   Spinner,
   RootToast,
   SearchBar,
-  RowItem
+  RowItem,
+  Tab,
 };

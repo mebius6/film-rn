@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Dimensions from 'Dimensions';
+import React, {Component} from 'react';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 
 import RootSiblings from 'react-native-root-siblings';
 
-import { Icon, Spinner, RootToast } from './Index';
+import {Icon, Spinner, RootToast} from './Index';
 
 class Toast extends Component {
   constructor(props) {
@@ -29,8 +28,8 @@ class Toast extends Component {
       onHidden: () => {},
       mask: false, //是否显示遮罩
       wrapperPointerEvents: 'auto', //pointerEvents enum('box-none', 'none', 'box-only', 'auto')
-      maskStyle: null //遮罩的样式
-    }
+      maskStyle: null, //遮罩的样式
+    },
   ) {
     let toast = {};
     //不允许自动关闭
@@ -41,7 +40,9 @@ class Toast extends Component {
     }
     toast.wrapper =
       options.mask &&
-      new RootSiblings(<View style={[styles.contianer, options.maskStyle]} />);
+      new RootSiblings(
+        (<View style={[styles.contianer, options.maskStyle]} />),
+      );
     let msgView = (
       <View style={styles.toast_info}>
         {iconName == 'spinner' ? (
@@ -49,7 +50,7 @@ class Toast extends Component {
         ) : (
           <Icon name={iconName} style={styles.toast_icon} />
         )}
-        <Text style={styles.toast_text}>{message}</Text>
+        {message ? <Text style={styles.toast_text}>{message}</Text> : null}
       </View>
     );
     toast.toast = RootToast.show(msgView, options);
@@ -79,25 +80,25 @@ var styles = StyleSheet.create({
     height: Dimensions.get('window').height,
     top: 0,
     left: 0,
-    backgroundColor: 'rgba(0,0,0,0.4)'
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   toast_info: {
     width: 120,
     height: 120,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   toast_icon: {
     fontSize: 36,
-    color: '#FFF'
+    color: '#FFF',
   },
   toast_text: {
     marginTop: 16,
     fontSize: 13,
     color: '#FFF',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
-export { RootToast };
+export {RootToast};
 export default Toast;
