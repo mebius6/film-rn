@@ -13,4 +13,7 @@ module.exports = {
   arrowLeft: 58880,
   arrowRight: 58934,
   spinner: 59321,
+  success: 58926,
+  warn: 58913,
+  fail: 58946,
 };

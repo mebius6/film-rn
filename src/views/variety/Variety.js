@@ -4,6 +4,9 @@ import {Header, Icon} from '../../components/Index';
 import {AppStyle} from '../../styles/Index';
 import TabarDetail from '../tabarDetail/TabarDetail';
 export default class Variety extends Component {
+  constructor(props) {
+    super(props);
+  }
   static navigationOptions = {
     title: '综艺',
     header: null,
@@ -29,10 +32,12 @@ export default class Variety extends Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.goBack();
-              }}></TouchableOpacity>
+              }}>
+              <Icon name={'search'} style={AppStyle.header_btn_icon} />
+            </TouchableOpacity>
           }
         />
-        <TabarDetail title="综艺"></TabarDetail>
+        <TabarDetail title="综艺" {...this.props}></TabarDetail>
       </SafeAreaView>
     );
   }

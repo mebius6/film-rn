@@ -4,6 +4,9 @@ import {Header, Icon} from '../../components/Index';
 import {AppStyle} from '../../styles/Index';
 import TabarDetail from '../tabarDetail/TabarDetail';
 export default class Anime extends Component {
+  constructor(props) {
+    super(props);
+  }
   static navigationOptions = {
     title: '动漫',
     header: null,
@@ -26,10 +29,12 @@ export default class Anime extends Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.goBack();
-              }}></TouchableOpacity>
+              }}>
+              <Icon name={'search'} style={AppStyle.header_btn_icon} />
+            </TouchableOpacity>
           }
         />
-        <TabarDetail title="动漫"></TabarDetail>
+        <TabarDetail title="动漫" {...this.props}></TabarDetail>
       </SafeAreaView>
     );
   }

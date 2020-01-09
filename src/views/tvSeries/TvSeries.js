@@ -4,6 +4,9 @@ import {Header, Icon} from '../../components/Index';
 import {AppStyle} from '../../styles/Index';
 import TabarDetail from '../tabarDetail/TabarDetail';
 export default class TvSeries extends Component {
+  constructor(props) {
+    super(props);
+  }
   static navigationOptions = {
     title: '电视剧',
     header: null,
@@ -31,10 +34,12 @@ export default class TvSeries extends Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.goBack();
-              }}></TouchableOpacity>
+              }}>
+              <Icon name={'search'} style={AppStyle.header_btn_icon} />
+            </TouchableOpacity>
           }
         />
-        <TabarDetail title="电视剧"></TabarDetail>
+        <TabarDetail title="电视剧" {...this.props}></TabarDetail>
       </SafeAreaView>
     );
   }

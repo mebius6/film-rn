@@ -4,7 +4,9 @@ import {
   colorMap,
   screenWidth,
   screenHeight,
-  statusBarHeight
+  statusBarHeight,
+  headerHeight,
+  bottomHeight,
 } from './AppStyle';
 import headerStyle from './Header';
 
@@ -16,5 +18,7 @@ module.exports = {
   colorMap,
   screenWidth,
   screenHeight,
-  statusBarHeight
+  statusBarHeight,
+  headerHeight,
+  bottomHeight,
 };

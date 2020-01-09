@@ -10,15 +10,24 @@ import {
 export default class Tab extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      items: this.props.items,
+      activeIndex: this.props.activeIndex,
+    };
   }
 
   changeActiveIndex = index => {
     const {onTabChange} = this.props;
     onTabChange && onTabChange(index);
   };
-
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.setState({
+      items: nextProps.items,
+      activeIndex: nextProps.activeIndex,
+    });
+  }
   render() {
-    const {items, activeIndex = 0} = this.props;
+    const {items, activeIndex = 0} = this.state;
     return (
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <View>
@@ -29,7 +38,7 @@ export default class Tab extends Component {
                 underlayColor={null}
                 style={[styles.tabItem]}
                 onPress={() => this.changeActiveIndex(index)}>
-                <Text style={styles.tabName}>{item}</Text>
+                <Text style={styles.tabName}>{item.title}</Text>
               </TouchableHighlight>
             ))}
           </View>

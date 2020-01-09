@@ -7,6 +7,8 @@ import RootToast from '../Libraries/Components/Toast/index';
 import SearchBar from '../Libraries/Components/SearchBar';
 import RowItem from '../Libraries/Components/RowItem';
 import Tab from './Tab';
+import Grid from './Grid';
+import Card from './Card';
 module.exports = {
   Header,
   Icon,
@@ -17,4 +19,6 @@ module.exports = {
   SearchBar,
   RowItem,
   Tab,
+  Grid,
+  Card,
 };

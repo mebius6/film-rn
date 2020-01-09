@@ -1,20 +1,35 @@
 import actionTypes from '../../actionTypes';
 
 const initState = {
-  token: '',
-  userInfo: {},
+  tabsData: [],
+  loading: false,
+  errorMsg: '',
 };
 
 function account(state = initState, action) {
   switch (action.type) {
-    case actionTypes.SET_USERINFO:
+    case actionTypes.SET_TABSDATA:
       return {
         ...state,
-        token: action.info.token || state.userInfo.token,
-        userInfo: {
-          ...state.userInfo,
-          ...action.info,
-        },
+        tabsData: action.tabsData,
+      };
+    case actionTypes.REQ_START:
+      return {
+        ...state,
+        tabsData: [],
+        loading: action.loading,
+      };
+    case actionTypes.REQ_FAIL:
+      return {
+        ...state,
+        loading: action.loading,
+        errorMsg: action.errorMsg,
+      };
+    case actionTypes.REQ_SUCCESS:
+      return {
+        ...state,
+        loading: action.loading,
+        tabsData: action.tabsData,
       };
     default:
       return state;
