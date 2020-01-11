@@ -7,6 +7,7 @@ import {
   statusBarHeight,
   headerHeight,
   bottomHeight,
+  tabBarHeight,
 } from '../styles/Index';
 
 export default class Grid extends Component {
@@ -14,7 +15,7 @@ export default class Grid extends Component {
     super(props);
     this.defaultImgWidth = screenWidth / this.props.columns;
     this.defaultImgHeight =
-      (screenHeight - headerHeight - statusBarHeight - bottomHeight - 12) /
+      (screenHeight - headerHeight - statusBarHeight - bottomHeight - 8) /
       this.props.columns;
     this.state = {
       width: this.props.width || this.defaultImgWidth,
@@ -47,7 +48,8 @@ export default class Grid extends Component {
         (screenHeight -
           statusBarHeight -
           bottomHeight -
-          headerHeight * 2 -
+          headerHeight -
+          tabBarHeight -
           22) /
         this.props.columns;
       this.setState({
@@ -67,7 +69,7 @@ export default class Grid extends Component {
           <View>
             <Image
               source={{uri: imgPath}}
-              style={{height: height, width: width - 10}}
+              style={{height: height - 18, width: width - 10}}
               resizeMethod="resize"
             />
             <Text style={styles.gridItem}>{title}</Text>

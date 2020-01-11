@@ -15,9 +15,13 @@ class Card extends Component {
     showImg: PropTypes.bool, //是否显示图片
     image: PropTypes.object, //图片地址
     columns: PropTypes.array, //右侧内容
+    width: PropTypes.number, //图片宽度
+    height: PropTypes.number, //图片高度
   };
   static defaultProps = {
     showImg: true,
+    width: parseInt(screenWidth / 4),
+    height: parseInt((screenWidth / 4) * 1.5),
     image: {
       path: '',
     },
@@ -32,12 +36,12 @@ class Card extends Component {
     if (!item.render) {
       return (
         <View key={index} style={styles.cardRightItem}>
-          <Text style={styles.cardRightItemText}>{item}</Text>
+          <Text style={[styles.cardRightItemText]}>{item}</Text>
         </View>
       );
     } else {
       return (
-        <View key={index} style={styles.cardRightItem}>
+        <View key={index} style={styles.cardRightRender}>
           {item.render()}
         </View>
       );
@@ -45,16 +49,17 @@ class Card extends Component {
   };
   render() {
     const {showImg, image, columns} = this.state;
+    const {height, width} = this.props;
     const rightContent = columns.map((v, i) => {
       return this._renderCardRightItem(v, i);
     });
     if (showImg) {
       return (
         <View style={styles.container}>
-          <View style={styles.cardLeft}>
+          <View style={[styles.cardLeft, {height, width}]}>
             <Image
               source={{uri: image.path}}
-              style={styles.cardLeftImg}
+              style={{height, width}}
               resizeMethod="resize"
             />
           </View>
@@ -74,8 +79,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   cardLeft: {
-    width: screenWidth / 4,
-    height: (screenWidth / 4) * 1.5,
     borderWidth: 1,
     borderColor: '#dbdbdb',
     borderStyle: 'solid',
@@ -84,10 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  cardLeftImg: {
-    width: screenWidth / 4,
-    height: (screenWidth / 4) * 1.5,
-  },
+  cardLeftImg: {},
   cardRight: {
     flex: 1,
     flexDirection: 'column',
@@ -100,6 +100,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'left',
     flexDirection: 'row',
+  },
+  cardRightRender: {
+    flexDirection: 'row',
+    textAlign: 'left',
   },
   cardRightItemText: {
     lineHeight: 24,

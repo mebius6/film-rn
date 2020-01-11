@@ -64,7 +64,7 @@ class Toast extends Component {
     } else if (toast && toast.toast && toast.toast instanceof RootSiblings) {
       RootToast.hide(toast.toast);
     } else {
-      console.warn('Toast show have an error');
+      // console.warn('Toast show have an error');
     }
   }
 

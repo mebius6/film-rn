@@ -29,7 +29,7 @@ class Film extends Component {
           headerRight={
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.goBack();
+                this.props.navigation.navigate('SearchResult');
               }}>
               <Icon name={'search'} style={AppStyle.header_btn_icon} />
             </TouchableOpacity>

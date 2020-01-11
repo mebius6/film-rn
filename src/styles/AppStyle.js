@@ -8,7 +8,8 @@ const {height, width} = Dimensions.get('window');
 const screenWidth = width,
   screenHeight = height,
   headerHeight = 44,
-  bottomHeight = 49;
+  bottomHeight = 49,
+  tabBarHeight = 49;
 
 // 获取状态栏高度
 function isIphoneX() {
@@ -115,4 +116,5 @@ module.exports = {
   statusBarHeight,
   headerHeight,
   bottomHeight,
+  tabBarHeight,
 };

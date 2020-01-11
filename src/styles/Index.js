@@ -7,6 +7,7 @@ import {
   statusBarHeight,
   headerHeight,
   bottomHeight,
+  tabBarHeight,
 } from './AppStyle';
 import headerStyle from './Header';
 
@@ -21,4 +22,5 @@ module.exports = {
   statusBarHeight,
   headerHeight,
   bottomHeight,
+  tabBarHeight,
 };

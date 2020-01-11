@@ -15,6 +15,7 @@ import {
   statusBarHeight,
   headerHeight,
   bottomHeight,
+  tabBarHeight,
 } from '../../styles/Index';
 
 import Toast from '../../components/Toast';
@@ -37,20 +38,6 @@ class TabarDetail extends Component {
       onShow: true,
     };
   }
-  onTabChange(index) {
-    this.setState(
-      {
-        activeIndex: index,
-        params: this.tabs.find((v, i) => i === index) || {},
-      },
-      () => {
-        let params = this.state.params;
-        if (params.path) {
-          this._getList(params.path);
-        }
-      },
-    );
-  }
 
   componentDidMount() {
     console.log(['detail', this.props]);
@@ -60,6 +47,22 @@ class TabarDetail extends Component {
   componentWillUnmount() {
     this.setState({onShow: false});
   }
+  // 切换tabs
+  onTabChange(index) {
+    let params = this.state.tabs.find((v, i) => i === index) || {};
+    this.setState(
+      {
+        activeIndex: index,
+        params,
+      },
+      () => {
+        let params = this.state.params;
+        if (params.path) {
+          this._getList(params.path);
+        }
+      },
+    );
+  }
   //拉取tabs数据
   _getTabBarList = () => {
     let item = this.state.tabData.find(v => v.title == this.props.title);
@@ -67,16 +70,17 @@ class TabarDetail extends Component {
     if (item) {
       global.api.get245BtTabData(item.path, {}).then(
         res => {
-          let height = screenHeight - statusBarHeight - bottomHeight || 0;
+          let height =
+            screenHeight - headerHeight - statusBarHeight - bottomHeight || 0;
           if (res.tabs.length) {
             height =
               screenHeight -
                 statusBarHeight -
                 headerHeight -
                 bottomHeight -
-                54 || 0;
+                tabBarHeight -
+                20 || 0;
           }
-          console.log(['height', height]);
           this.setState({tabs: res.tabs || [], height});
         },
         err => {
@@ -125,7 +129,6 @@ class TabarDetail extends Component {
     if (pageIndex > 1) {
       list = unit.objectArrayReduce([...flatListData, ...list], 'title');
     }
-    console.log(['list', list]);
     this.setState({
       flatListData: list,
       isLoading: false,
@@ -155,6 +158,7 @@ class TabarDetail extends Component {
         key={item.title}></Grid>
     );
   }
+  // 跳转详情页
   gridChange(index) {
     let {flatListData} = this.state;
     let item = flatListData[index];
@@ -222,7 +226,11 @@ class TabarDetail extends Component {
               this.onTabChange(index);
             }}></Tab>
         ) : null}
-        <View style={[styles.flatList, {height: height}]}>
+        <View
+          style={[
+            styles.flatList,
+            {height: height, marginVertical: tabs.length ? 0 : 6},
+          ]}>
           <FlatList
             numColumns={3}
             keyExtractor={(item, index) => index.toString()}
@@ -259,9 +267,8 @@ const mapStateToProps = state => {
 const styles = StyleSheet.create({
   flatList: {
     // 主轴方向
-
     // 侧轴方向// 必须设置,否则换行不起作用
-    margin: 10,
+    marginHorizontal: 10,
   },
 
   item: {},
