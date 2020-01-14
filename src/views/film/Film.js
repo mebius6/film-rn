@@ -26,6 +26,8 @@ class Film extends Component {
         <Header
           style={AppStyle.headerStyle}
           title={'电影'}
+          leftStyle={AppStyle.header_btn_left}
+          rightStyle={AppStyle.header_btn_right}
           headerRight={
             <TouchableOpacity
               onPress={() => {

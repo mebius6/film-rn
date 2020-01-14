@@ -30,10 +30,12 @@ export default class TvSeries extends Component {
         <Header
           style={AppStyle.headerStyle}
           title={'电视剧'}
+          leftStyle={AppStyle.header_btn_left}
+          rightStyle={AppStyle.header_btn_right}
           headerRight={
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.goBack();
+                this.props.navigation.navigate('SearchResult');
               }}>
               <Icon name={'search'} style={AppStyle.header_btn_icon} />
             </TouchableOpacity>

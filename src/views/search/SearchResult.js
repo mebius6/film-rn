@@ -207,6 +207,8 @@ class SearchResult extends Component {
         <Header
           style={AppStyle.headerStyle}
           title={'搜索'}
+          leftStyle={AppStyle.header_btn_left}
+          rightStyle={AppStyle.header_btn_right}
           headerLeft={
             <TouchableOpacity
               onPress={() => {

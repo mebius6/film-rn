@@ -41,7 +41,7 @@ const MainNavigator = createStackNavigator(
     initialRouteName: 'MainTab',
     headerMode: 'none',
     navigationOptions: {
-      gesturesEnabled: true, //手势控制页面切换
+      gesturesEnabled: false, //手势控制页面切换
     },
   },
 );

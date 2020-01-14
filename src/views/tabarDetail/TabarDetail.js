@@ -41,6 +41,8 @@ class TabarDetail extends Component {
 
   async componentDidMount() {
     console.log(['detail', this.props]);
+    Toast.hide();
+    this.item = this.props.tabsData.find(v => v.title === this.props.title);
     await this._getTabBarList();
     await this._getDefault();
   }
@@ -91,23 +93,22 @@ class TabarDetail extends Component {
   };
   _getDefault = () => {
     let vm = this;
-    let {flatListData, params, onShow} = vm.state;
+    let {onShow, activeIndex} = vm.state;
     if (!onShow) {
       return false;
     }
-    if (!flatListData.length) {
-      let header = this.props.tabsData.find(v => v.title === this.props.title);
-      params = {path: header.path};
-      if (header) {
-        vm.setState(
-          {
-            params: params,
-          },
-          async () => {
-            await vm._getList(header.path);
-          },
-        );
-      }
+    let header = this.props.tabsData[activeIndex];
+    header = header ? header : this.item;
+    console.log(['header', header]);
+    if (header) {
+      vm.setState(
+        {
+          params: header,
+        },
+        async () => {
+          await vm._getList(header.path);
+        },
+      );
     }
   };
   // 拉取列表数据
