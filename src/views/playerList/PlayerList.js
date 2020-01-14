@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {
   View,
   Platform,
-  TouchableOpacity,
   SafeAreaView,
   StatusBar,
   StyleSheet,
@@ -75,7 +74,6 @@ class PlayerList extends Component {
       loading,
       hiddenStatusBar,
     } = this.state;
-    console.log(['hiddenStatusBar', hiddenStatusBar]);
     return (
       <SafeAreaView style={AppStyle.container}>
         <StatusBar
@@ -107,16 +105,20 @@ class PlayerList extends Component {
               this._onPressFullScreenBtn();
             }
           }}></VideoPlayer>
-        {/* <View style={styles.container}>
-          <Episode
-            data={params.list && Array.isArray(params.list) ? params.list : []}
-            onChange={item => {
-              params.path = item.path;
-              this.setState({params}, () => {
-                this._getPlayerUrl();
-              });
-            }}></Episode>
-        </View> */}
+        {!androidFullscreen ? (
+          <View style={styles.container}>
+            <Episode
+              data={
+                params.list && Array.isArray(params.list) ? params.list : []
+              }
+              onChange={item => {
+                params.path = item.path;
+                this.setState({params}, () => {
+                  this._getPlayerUrl();
+                });
+              }}></Episode>
+          </View>
+        ) : null}
       </SafeAreaView>
     );
   }
