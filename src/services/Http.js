@@ -1,7 +1,7 @@
 import Config from '../config/Config';
 import axios from 'axios';
 import querystring from 'querystring';
-import Toast from '../components/Toast';
+// import Toast from '../components/Toast';
 // 错误提示
 const networkErr = '网络请求超时';
 
@@ -13,7 +13,7 @@ let instance = axios.create({
 // request 拦截器
 instance.interceptors.request.use(
   config => {
-    Toast.show('spinner');
+    // Toast.show('spinner');
     return config;
   },
   err => {
@@ -24,7 +24,7 @@ instance.interceptors.request.use(
 // response 拦截器
 instance.interceptors.response.use(
   res => {
-    Toast.hide();
+    // Toast.hide();
     return res;
   },
   err => {

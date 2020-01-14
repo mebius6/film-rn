@@ -43,11 +43,12 @@ class SearchResult extends Component {
   }
   // 搜索栏模糊搜索
   querySearchBar = value => {
-    console.log(['search', value]);
+    this.setState({keyWords: value});
   };
+
   // 搜索栏搜索查询
-  onKeyPress = value => {
-    this.setState({keyWords: value, pageIndex: 1}, () => {
+  onSubmitEditing = () => {
+    this.setState({pageIndex: 1}, () => {
       this._getList();
     });
   };
@@ -94,7 +95,11 @@ class SearchResult extends Component {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      this.clickBtn({...v.btn[1], imgPath: v.imgPath});
+                      this.clickBtn({
+                        ...v.btn[1],
+                        imgPath: v.imgPath,
+                        name: v.title,
+                      });
                     }}>
                     <Text style={[styles.searchBtn, {marginLeft: 12}]}>
                       {v.btn[1].title}
@@ -214,7 +219,7 @@ class SearchResult extends Component {
         <SearchBar
           onChange={this.querySearchBar}
           value={keyWords}
-          onKeyPress={this.onKeyPress}></SearchBar>
+          onSubmitEditing={this.onSubmitEditing}></SearchBar>
         <View>
           <FlatList
             keyExtractor={(item, index) => index.toString()}

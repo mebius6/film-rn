@@ -34,16 +34,19 @@ class VideoDetail extends Component {
     console.log([{body, author, title}]);
     this.setState({body, author, title});
   };
-  playItemChange(item) {
-    console.log('点击', item);
+  playItemChange(item, index) {
+    let {body} = this.state;
+    let data = Object.assign({}, item, {list: [body[index]]});
+    // 跳转播放页
+    this.props.navigation.navigate('PlayerList', data);
   }
   render() {
-    let {params, title, body} = this.state;
+    let {params, title, author, body} = this.state;
     return (
       <SafeAreaView style={AppStyle.container}>
         <Header
           style={AppStyle.headerStyle}
-          title={params.title || ''}
+          title={author || ''}
           headerLeft={
             <TouchableOpacity
               onPress={() => {
@@ -57,8 +60,8 @@ class VideoDetail extends Component {
         <View style={styles.container}>
           <Episode
             data={body}
-            onChange={item => {
-              this.playItemChange(item);
+            onChange={(item, list) => {
+              this.playItemChange({...item, name: author}, list);
             }}></Episode>
         </View>
       </SafeAreaView>

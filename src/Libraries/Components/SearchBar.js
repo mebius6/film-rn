@@ -43,10 +43,14 @@ export default class SearchBar extends Component {
       easing: Easing.cubic, // 缓动函数
     }).start();
   }
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({
-      inputValue: nextProps.value,
-    });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.value !== prevState.inputValue) {
+      return {
+        inputValue: nextProps.value,
+      };
+    } else {
+      return null;
+    }
   }
   inputChange(value) {
     if (!value) {
@@ -88,12 +92,16 @@ export default class SearchBar extends Component {
   };
   onSearch = () => {
     let {inputValue} = this.state;
-    this.props.onKeyPress && this.props.onKeyPress(inputValue);
+    this.props.onSubmitEditing && this.props.onSubmitEditing(inputValue);
   };
   onKeyPress = () => {
     let {inputValue} = this.state;
+    this.props.onChange && this.props.onChange(inputValue);
+  };
+  onSubmitEditing = () => {
+    let {inputValue} = this.state;
     console.log(['ress', inputValue]);
-    this.props.onKeyPress && this.props.onKeyPress(inputValue);
+    this.props.onSubmitEditing && this.props.onSubmitEditing(inputValue);
   };
   render() {
     const {placeholder, inputValue} = this.state;
@@ -112,6 +120,7 @@ export default class SearchBar extends Component {
           placeholder={placeholder}
           placeholderTextColor={'#ccc'}
           onKeyPress={this.onKeyPress}
+          onSubmitEditing={this.onSubmitEditing}
           underlineColorAndroid={'transparent'}
           clearButtonMode={'always'}
           onFocus={this.onFocus}

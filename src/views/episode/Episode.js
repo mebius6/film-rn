@@ -29,8 +29,8 @@ class Episode extends Component {
       list: newProps.data,
     });
   }
-  _changeEpisode = item => {
-    this.props.onChange && this.props.onChange(item);
+  _changeEpisode = (item, index) => {
+    this.props.onChange && this.props.onChange(item, index);
   };
   _renderEpisodePart = (v, i) => {
     return (
@@ -50,7 +50,7 @@ class Episode extends Component {
         <TouchableHighlight
           key={`${i}${index}`}
           onPress={() => {
-            this._changeEpisode(item);
+            this._changeEpisode(item, i);
           }}
           underlayColor={'#ccc'}>
           <View style={[styles.episodeItem]}>

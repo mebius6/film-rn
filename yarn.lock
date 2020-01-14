@@ -842,11 +842,6 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@react-native-community/async-storage@^1.7.1":
-  version "1.7.1"
-  resolved "https://registry.npm.taobao.org/@react-native-community/async-storage/download/@react-native-community/async-storage-1.7.1.tgz#ef2104d865de61ad91bba66613e57e689ff4e6a1"
-  integrity sha1-7yEE2GXeYa2Ru6ZmE+V+aJ/05qE=
-
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/@react-native-community/cli-debugger-ui/download/@react-native-community/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"
@@ -5376,7 +5371,7 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
-react-native-gesture-handler@^1.5.2:
+react-native-gesture-handler@1.5.2:
   version "1.5.2"
   resolved "https://registry.npm.taobao.org/react-native-gesture-handler/download/react-native-gesture-handler-1.5.2.tgz#281111550bf1eee10b7feba5278d142169892731"
   integrity sha1-KBERVQvx7uELf+ulJ40UIWmJJzE=
@@ -5615,11 +5610,6 @@ realpath-native@^1.1.0:
   integrity sha1-IAMpT+oj+wZy8kduviL89Jii1lw=
   dependencies:
     util.promisify "^1.0.0"
-
-redux-persist@5.10.0:
-  version "5.10.0"
-  resolved "https://registry.npm.taobao.org/redux-persist/download/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
-  integrity sha1-XY2ALFVx5Vkk78HDqbI1dSg75is=
 
 redux-thunk@^2.3.0:
   version "2.3.0"

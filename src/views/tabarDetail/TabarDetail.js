@@ -39,58 +39,57 @@ class TabarDetail extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log(['detail', this.props]);
-    this._getTabBarList();
-    this._getDefault();
+    await this._getTabBarList();
+    await this._getDefault();
   }
   componentWillUnmount() {
     this.setState({onShow: false});
+    Toast.hide();
   }
   // 切换tabs
   onTabChange(index) {
     let params = this.state.tabs.find((v, i) => i === index) || {};
+    Toast.show('spinner');
     this.setState(
       {
         activeIndex: index,
         params,
       },
-      () => {
+      async () => {
         let params = this.state.params;
         if (params.path) {
-          this._getList(params.path);
+          await this._getList(params.path);
+          Toast.hide();
         }
       },
     );
   }
   //拉取tabs数据
-  _getTabBarList = () => {
+  _getTabBarList = async () => {
     let item = this.state.tabData.find(v => v.title == this.props.title);
 
     if (item) {
-      global.api.get245BtTabData(item.path, {}).then(
-        res => {
-          let height =
-            screenHeight - headerHeight - statusBarHeight - bottomHeight || 0;
-          if (res.tabs.length) {
-            height =
-              screenHeight -
-                statusBarHeight -
-                headerHeight -
-                bottomHeight -
-                tabBarHeight -
-                20 || 0;
-          }
-          this.setState({tabs: res.tabs || [], height});
-        },
-        err => {
-          Toast.show('fail', err);
-          this._getTabBarList();
-        },
-      );
+      let res = await global.api.get245BtTabData(item.path, {}).catch(err => {
+        Toast.show('fail', err);
+        this._getTabBarList();
+      });
+      let height =
+        screenHeight - headerHeight - statusBarHeight - bottomHeight || 0;
+      if (res.tabs.length) {
+        height =
+          screenHeight -
+            statusBarHeight -
+            headerHeight -
+            bottomHeight -
+            tabBarHeight -
+            20 || 0;
+      }
+      this.setState({tabs: res.tabs || [], height});
     }
   };
-  _getDefault = async () => {
+  _getDefault = () => {
     let vm = this;
     let {flatListData, params, onShow} = vm.state;
     if (!onShow) {
@@ -104,8 +103,8 @@ class TabarDetail extends Component {
           {
             params: params,
           },
-          () => {
-            vm._getList(header.path);
+          async () => {
+            await vm._getList(header.path);
           },
         );
       }

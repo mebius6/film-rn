@@ -9,6 +9,8 @@ import RowItem from '../Libraries/Components/RowItem';
 import Tab from './Tab';
 import Grid from './Grid';
 import Card from './Card';
+import PlayerVideo from './PlayerVideo';
+import VideoPlayer from '../Libraries/Components/videoControls/VideoPlayer';
 module.exports = {
   Header,
   Icon,
@@ -21,4 +23,6 @@ module.exports = {
   Tab,
   Grid,
   Card,
+  PlayerVideo,
+  VideoPlayer,
 };
