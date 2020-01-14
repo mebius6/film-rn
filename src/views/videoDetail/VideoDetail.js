@@ -47,6 +47,8 @@ class VideoDetail extends Component {
         <Header
           style={AppStyle.headerStyle}
           title={author || ''}
+          leftStyle={AppStyle.header_btn_left}
+          rightStyle={AppStyle.header_btn_right}
           headerLeft={
             <TouchableOpacity
               onPress={() => {

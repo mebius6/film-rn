@@ -5,6 +5,7 @@ import {
   Platform,
   TouchableOpacity,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
 } from 'react-native';
 import {AppStyle} from '../../styles/Index';
@@ -26,6 +27,7 @@ class PlayerList extends Component {
       videoUrl: '',
       fullscreen: false,
       androidFullscreen: false,
+      hiddenStatusBar: false,
     };
   }
   static navigationOptions = {
@@ -61,13 +63,24 @@ class PlayerList extends Component {
     const {androidFullscreen} = this.state;
     this.setState({
       androidFullscreen: androidFullscreen ? false : true,
+      hiddenStatusBar: androidFullscreen ? false : true,
     });
   };
   render() {
-    let {params, fullscreen, androidFullscreen, videoUrl, loading} = this.state;
-    console.log(['params', params]);
+    let {
+      params,
+      fullscreen,
+      androidFullscreen,
+      videoUrl,
+      loading,
+      hiddenStatusBar,
+    } = this.state;
+    console.log(['hiddenStatusBar', hiddenStatusBar]);
     return (
       <SafeAreaView style={AppStyle.container}>
+        <StatusBar
+          hidden={hiddenStatusBar}
+          showHideTransition={'fade'}></StatusBar>
         <VideoPlayer
           videoUrl={videoUrl}
           fullscreen={fullscreen}

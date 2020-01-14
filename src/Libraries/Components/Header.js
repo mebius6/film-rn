@@ -28,6 +28,7 @@ export default class Header extends Component {
     showStatusBar: PropTypes.bool,
     statusBarStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     barStyle: PropTypes.string,
+    hidden: PropTypes.bool,
   };
 
   // default props
@@ -39,6 +40,7 @@ export default class Header extends Component {
     barStyle: 'light-content',
     title: '',
     showTitle: true,
+    hidden: false,
   };
 
   isIphoneX() {
@@ -81,6 +83,7 @@ export default class Header extends Component {
       headerLeft,
       headerCenter,
       headerRight,
+      hidden,
     } = this.props;
 
     return (
@@ -88,6 +91,8 @@ export default class Header extends Component {
         <StatusBar
           backgroundColor={'transparent'}
           translucent={true}
+          hidden={hidden}
+          showHideTransition={'fade'}
           barStyle={barStyle}
         />
         <View
