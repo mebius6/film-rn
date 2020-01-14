@@ -11,6 +11,8 @@ export default StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 5,
     height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   header_btn_right: {
     //...styleMap.bjColor_red1,
