@@ -15,9 +15,9 @@ import {TabNav, Pages} from './views/Views';
 const tabNavigatorAttr = {
   initialRouteName: 'Film',
   tabBarComponent: BottomTabBar,
-  tabBarPosition: 'bottom',
-  swipeEnabled: false,
-  animationEnabled: false,
+  tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
+  swipeEnabled: false, // 是否可以左右滑动切换tab
+  animationEnabled: false, // 切换页面时是否有动画效果
   lazy: true,
   tabBarOptions: {
     inactiveTintColor: '#808080',

@@ -24,13 +24,18 @@ class Episode extends Component {
   static defaultProps = {
     data: [],
   };
-  UNSAFE_componentWillReceiveProps(newProps) {
-    this.setState({
-      list: newProps.data,
-    });
+  static getDerivedStateFromProps(newProps, prevState) {
+    if (newProps.data !== prevState.list) {
+      return {
+        list: newProps.data,
+      };
+    }
+
+    return null;
   }
-  _changeEpisode = (item, index) => {
-    this.props.onChange && this.props.onChange(item, index);
+
+  _changeEpisode = (item, indexs) => {
+    this.props.onChange && this.props.onChange(item, indexs);
   };
   _renderEpisodePart = (v, i) => {
     return (
@@ -39,7 +44,7 @@ class Episode extends Component {
           <Text>{v.source}</Text>
         </View>
         <View style={styles.episodeList}>
-          {this._renderEpisodeItem(v.list, i)}
+          {this._renderEpisodeItem(v.list || [], i)}
         </View>
       </View>
     );
@@ -50,7 +55,7 @@ class Episode extends Component {
         <TouchableHighlight
           key={`${i}${index}`}
           onPress={() => {
-            this._changeEpisode(item, i);
+            this._changeEpisode(item, {rowIndex: i, colIndex: index});
           }}
           underlayColor={'#ccc'}>
           <View style={[styles.episodeItem]}>
@@ -62,7 +67,7 @@ class Episode extends Component {
   };
   render() {
     const {list} = this.state;
-    const episodePart = list.map((v, i) => {
+    const episodePart = (list || []).map((v, i) => {
       return this._renderEpisodePart(v, i);
     });
     return (
@@ -111,6 +116,19 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#eee',
+    borderRadius: 2,
+  },
+  episodeActiveText: {
+    fontSize: 14,
+    width: '100%',
+    height: 26,
+    lineHeight: 26,
+    paddingHorizontal: 2,
+    textAlign: 'center',
+    color: colorMap.green[1],
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: colorMap.green[0],
     borderRadius: 2,
   },
 });

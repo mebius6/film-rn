@@ -34,9 +34,11 @@ class VideoDetail extends Component {
     console.log([{body, author, title}]);
     this.setState({body, author, title});
   };
-  playItemChange(item, index) {
+  playItemChange(item, indexs) {
     let {body} = this.state;
-    let data = Object.assign({}, item, {list: [body[index]]});
+    let data = Object.assign({}, item, {
+      list: [body[indexs.rowIndex]],
+    });
     // 跳转播放页
     this.props.navigation.navigate('PlayerList', data);
   }
@@ -62,8 +64,8 @@ class VideoDetail extends Component {
         <View style={styles.container}>
           <Episode
             data={body}
-            onChange={(item, list) => {
-              this.playItemChange({...item, name: author}, list);
+            onChange={(item, indexs) => {
+              this.playItemChange({...item, name: author}, indexs);
             }}></Episode>
         </View>
       </SafeAreaView>

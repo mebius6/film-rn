@@ -40,11 +40,11 @@ class TabarDetail extends Component {
   }
 
   async componentDidMount() {
-    console.log(['detail', this.props]);
-    Toast.hide();
+    Toast.show('spinner');
     this.item = this.props.tabsData.find(v => v.title === this.props.title);
     await this._getTabBarList();
     await this._getDefault();
+    Toast.hide();
   }
   componentWillUnmount() {
     this.setState({onShow: false});
@@ -93,13 +93,11 @@ class TabarDetail extends Component {
   };
   _getDefault = () => {
     let vm = this;
-    let {onShow, activeIndex} = vm.state;
+    let {onShow} = vm.state;
     if (!onShow) {
       return false;
     }
-    let header = this.props.tabsData[activeIndex];
-    header = header ? header : this.item;
-    console.log(['header', header]);
+    let header = this.props.tabsData.find(v => v.title === this.props.title);
     if (header) {
       vm.setState(
         {
