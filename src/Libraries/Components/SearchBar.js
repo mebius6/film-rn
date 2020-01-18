@@ -38,9 +38,9 @@ export default class SearchBar extends Component {
     Animated.timing(this.state.opacity, {
       toValue: 1, // 目标值
 
-      duration: 1500, // 动画时间
+      duration: 500, // 动画时间
 
-      easing: Easing.cubic, // 缓动函数
+      easing: Easing.linear, // 缓动函数
     }).start();
   }
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -57,7 +57,7 @@ export default class SearchBar extends Component {
       Animated.timing(this.state.left, {
         toValue: screenWidth / 2, // 目标值
         duration: 500, // 动画时间
-        easing: Easing.cubic, // 缓动函数
+        easing: Easing.linear, // 缓动函数
       }).start();
     } else {
       Animated.timing(this.state.left, {
@@ -65,7 +65,7 @@ export default class SearchBar extends Component {
 
         duration: 500, // 动画时间
 
-        easing: Easing.cubic, // 缓动函数
+        easing: Easing.linear, // 缓动函数
       }).start();
     }
     this.setState({inputValue: value});
@@ -77,7 +77,7 @@ export default class SearchBar extends Component {
 
       duration: 500, // 动画时间
 
-      easing: Easing.cubic, // 缓动函数
+      easing: Easing.linear, // 缓动函数
     }).start();
   };
   onBlur = () => {
@@ -86,7 +86,7 @@ export default class SearchBar extends Component {
       Animated.timing(this.state.left, {
         toValue: screenWidth / 2, // 目标值
         duration: 500, // 动画时间
-        easing: Easing.cubic, // 缓动函数
+        easing: Easing.linear, // 缓动函数
       }).start();
     }
   };

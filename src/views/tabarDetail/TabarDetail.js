@@ -20,7 +20,7 @@ import {
 
 import Toast from '../../components/Toast';
 import unit from '../../services/unit';
-import Result from '../../components/Result';
+
 class TabarDetail extends Component {
   constructor(props) {
     super(props);
@@ -181,7 +181,7 @@ class TabarDetail extends Component {
   //上拉滚动加载
   _onEndReachedloadData() {
     let {hasMore, pageIndex} = this.state;
-    if (!hasMore) {
+    if (!hasMore || this.state.isLoading) {
       return false;
     }
     pageIndex += 1;
@@ -202,6 +202,10 @@ class TabarDetail extends Component {
 
   //下拉刷新
   loadData() {
+    let {onShow} = this.state;
+    if (!onShow || this.state.isLoading) {
+      return false;
+    }
     this.setState(
       {
         isLoading: true,
@@ -229,33 +233,29 @@ class TabarDetail extends Component {
             styles.flatList,
             {height: height, marginVertical: tabs.length ? 0 : 6},
           ]}>
-          {flatListData.length ? (
-            <FlatList
-              numColumns={3}
-              keyExtractor={(item, index) => index.toString()}
-              data={flatListData}
-              renderItem={data => {
-                return this._renderItem(data);
-              }}
-              refreshControl={
-                <RefreshControl
-                  title={'loading'}
-                  colors={['blue']}
-                  refreshing={isLoading}
-                  onRefresh={() => {
-                    this.loadData();
-                  }}
-                />
-              }
-              ListFooterComponent={() => isLoading && this._genIndicator()}
-              onEndReachedThreshold={0.1}
-              onEndReached={() => {
-                this._onEndReachedloadData();
-              }}
-            />
-          ) : (
-            <Result />
-          )}
+          <FlatList
+            numColumns={3}
+            keyExtractor={(item, index) => index.toString()}
+            data={flatListData}
+            renderItem={data => {
+              return this._renderItem(data);
+            }}
+            refreshControl={
+              <RefreshControl
+                title={'loading'}
+                colors={['blue']}
+                refreshing={isLoading}
+                onRefresh={() => {
+                  this.loadData();
+                }}
+              />
+            }
+            ListFooterComponent={() => isLoading && this._genIndicator()}
+            onEndReachedThreshold={0.1}
+            onEndReached={() => {
+              this._onEndReachedloadData();
+            }}
+          />
         </View>
       </View>
     );

@@ -39,7 +39,7 @@ class SearchResult extends Component {
       pageIndex: 1,
       isEndReachedLoading: false,
       hasMore: false, //是否还有更多内容
-      height: screenHeight - headerHeight - statusBarHeight - bottomHeight,
+      height: screenHeight - headerHeight - statusBarHeight - bottomHeight - 20,
       onShow: true,
     };
   }
@@ -177,7 +177,7 @@ class SearchResult extends Component {
   //上拉滚动加载
   _onEndReachedloadData() {
     let {hasMore, onShow, pageIndex, keyWords} = this.state;
-    if (!hasMore || !onShow || !keyWords) {
+    if (!hasMore || !onShow || !keyWords || this.state.isLoading) {
       return false;
     }
     pageIndex += 1;
@@ -196,7 +196,7 @@ class SearchResult extends Component {
   //下拉刷新
   loadData() {
     let {keyWords, onShow} = this.state;
-    if (!onShow || !keyWords) {
+    if (!onShow || !keyWords || this.state.isLoading) {
       return false;
     }
     this.setState(
