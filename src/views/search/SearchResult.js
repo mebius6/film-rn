@@ -10,10 +10,19 @@ import {
   Text,
 } from 'react-native';
 import {Header, Icon, Card, SearchBar} from '../../components/Index';
-import {AppStyle, colorMap, screenWidth} from '../../styles/Index';
+import {
+  AppStyle,
+  colorMap,
+  screenWidth,
+  screenHeight,
+  statusBarHeight,
+  headerHeight,
+  bottomHeight,
+} from '../../styles/Index';
 import {connect} from 'react-redux';
 import Toast from '../../components/Toast';
 import unit from '../../services/unit';
+import Result from '../../components/Result';
 function mapStateToProps(state) {
   return {
     tabsData: state.account.tabsData,
@@ -30,7 +39,7 @@ class SearchResult extends Component {
       pageIndex: 1,
       isEndReachedLoading: false,
       hasMore: false, //是否还有更多内容
-      height: 0,
+      height: screenHeight - headerHeight - statusBarHeight - bottomHeight,
       onShow: true,
     };
   }
@@ -201,7 +210,7 @@ class SearchResult extends Component {
   }
 
   render() {
-    let {isLoading, flatListData, keyWords} = this.state;
+    let {isLoading, height, flatListData, keyWords} = this.state;
     return (
       <SafeAreaView style={AppStyle.container}>
         <Header
@@ -222,29 +231,33 @@ class SearchResult extends Component {
           onChange={this.querySearchBar}
           value={keyWords}
           onSubmitEditing={this.onSubmitEditing}></SearchBar>
-        <View>
-          <FlatList
-            keyExtractor={(item, index) => index.toString()}
-            data={flatListData}
-            renderItem={data => {
-              return this._renderItem(data);
-            }}
-            refreshControl={
-              <RefreshControl
-                title={'loading'}
-                colors={['blue']}
-                refreshing={isLoading}
-                onRefresh={() => {
-                  this.loadData();
-                }}
-              />
-            }
-            ListFooterComponent={() => isLoading && this._genIndicator()}
-            onEndReachedThreshold={0.1}
-            onEndReached={() => {
-              this._onEndReachedloadData();
-            }}
-          />
+        <View style={[styles.flatList, {height: height, marginVertical: 6}]}>
+          {flatListData.length ? (
+            <FlatList
+              keyExtractor={(item, index) => index.toString()}
+              data={flatListData}
+              renderItem={data => {
+                return this._renderItem(data);
+              }}
+              refreshControl={
+                <RefreshControl
+                  title={'loading'}
+                  colors={['blue']}
+                  refreshing={isLoading}
+                  onRefresh={() => {
+                    this.loadData();
+                  }}
+                />
+              }
+              ListFooterComponent={() => isLoading && this._genIndicator()}
+              onEndReachedThreshold={0.1}
+              onEndReached={() => {
+                this._onEndReachedloadData();
+              }}
+            />
+          ) : (
+            <Result />
+          )}
         </View>
       </SafeAreaView>
     );
@@ -252,6 +265,11 @@ class SearchResult extends Component {
 }
 
 const styles = StyleSheet.create({
+  flatList: {
+    // 主轴方向
+    // 侧轴方向// 必须设置,否则换行不起作用
+    marginHorizontal: 10,
+  },
   searchResultTitle: {
     color: colorMap.yellow[0],
     textAlign: 'left',

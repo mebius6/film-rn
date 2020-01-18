@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {View, Image, StyleSheet, screenWidth} from 'react-native';
+import {View, Text, Image, StyleSheet, screenWidth} from 'react-native';
 import {Icon} from '../components/Index';
-import {AppStyle} from '../components/Index';
+import {AppStyle, colorMap} from '../styles/Index';
 export default class Result extends Component {
   static propTypes = {
     iconName: PropTypes.string,
@@ -23,17 +23,19 @@ export default class Result extends Component {
     const {iconName, showIcon, imgUrl, img, title} = this.props;
     return (
       <View style={[AppStyle.container, AppStyle.center]}>
-        {showIcon ? (
-          <Icon name={iconName} style={styles.iconStyle}></Icon>
-        ) : null}
-        {!showIcon ? (
-          imgUrl ? (
-            <Image source={{uri: imgUrl}} style={styles.resultImage}></Image>
-          ) : (
-            img
-          )
-        ) : null}
-        <Text>{title}</Text>
+        <View style={[AppStyle.flex1, AppStyle.row, {alignItems: 'center'}]}>
+          {showIcon ? (
+            <Icon name={iconName} style={styles.iconStyle}></Icon>
+          ) : null}
+          {!showIcon ? (
+            imgUrl ? (
+              <Image source={{uri: imgUrl}} style={styles.resultImage}></Image>
+            ) : (
+              img
+            )
+          ) : null}
+          <Text>{title}</Text>
+        </View>
       </View>
     );
   }
@@ -41,7 +43,8 @@ export default class Result extends Component {
 
 const styles = StyleSheet.create({
   iconStyle: {
-    fontSize: 30,
+    fontSize: 24,
+    color: colorMap.yellow[0],
   },
   resultImage: {
     width: screenWidth / 3,
