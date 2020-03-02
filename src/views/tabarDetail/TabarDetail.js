@@ -91,7 +91,7 @@ class TabarDetail extends Component {
       this.setState({tabs: res.tabs || [], height});
     }
   };
-  _getDefault = () => {
+  _getDefault = async () => {
     let vm = this;
     let {onShow} = vm.state;
     if (!onShow) {
@@ -99,14 +99,10 @@ class TabarDetail extends Component {
     }
     let header = this.props.tabsData.find(v => v.title === this.props.title);
     if (header) {
-      vm.setState(
-        {
-          params: header,
-        },
-        async () => {
-          await vm._getList(header.path);
-        },
-      );
+      await vm._getList(header.path);
+      vm.setState({
+        params: header,
+      });
     }
   };
   // 拉取列表数据

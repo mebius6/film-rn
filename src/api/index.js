@@ -8,7 +8,6 @@ const services1 = {
   url: 'http://api.245bt.chenzhen.work',
   port: 3000,
 };
-console.warn('Http', http);
 let api = {
   /********************* www.1156zy.com api *****************/
 

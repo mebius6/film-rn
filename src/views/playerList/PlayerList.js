@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {AppStyle} from '../../styles/Index';
 import {VideoPlayer} from '../../components/Index';
+import {WebView} from 'react-native-webview';
 import Toast from '../../components/Toast';
 import Episode from '../episode/Episode'; //剧集列表
 function mapStateToProps(state) {
@@ -79,32 +80,42 @@ class PlayerList extends Component {
         <StatusBar
           hidden={hiddenStatusBar}
           showHideTransition={'fade'}></StatusBar>
-        <VideoPlayer
-          videoUrl={videoUrl}
-          fullscreen={fullscreen}
-          fullscreenAutorotate={true}
-          fullscreenOrientation={'landscape'} //landscape portrait
-          loading={loading}
-          onPressFullScreenBtn={() => {
-            if (Platform.OS === 'android') {
-              this._onPressFullScreenBtn();
-            } else {
+        {videoUrl.endsWith('.m3u8') ? (
+          <VideoPlayer
+            videoUrl={videoUrl}
+            fullscreen={fullscreen}
+            fullscreenAutorotate={true}
+            fullscreenOrientation={'landscape'} //landscape portrait
+            loading={loading}
+            onPressFullScreenBtn={() => {
+              if (Platform.OS === 'android') {
+                this._onPressFullScreenBtn();
+              } else {
+                this.setState({
+                  fullscreen: true,
+                });
+              }
+            }}
+            onFullscreenPlayerWillDismiss={() => {
               this.setState({
-                fullscreen: true,
+                fullscreen: false,
               });
-            }
-          }}
-          onFullscreenPlayerWillDismiss={() => {
-            this.setState({
-              fullscreen: false,
-            });
-          }}
-          is_full_screen={androidFullscreen}
-          onBack={() => {
-            if (Platform.OS === 'android') {
-              this._onPressFullScreenBtn();
-            }
-          }}></VideoPlayer>
+            }}
+            is_full_screen={androidFullscreen}
+            onBack={() => {
+              if (Platform.OS === 'android') {
+                this._onPressFullScreenBtn();
+              }
+            }}></VideoPlayer>
+        ) : (
+          <View style={{flex: 1}}>
+            <WebView
+              source={{
+                html: videoUrl,
+              }}
+            />
+          </View>
+        )}
         {!androidFullscreen ? (
           <View style={styles.container}>
             <Episode
