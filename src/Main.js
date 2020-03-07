@@ -54,7 +54,9 @@ class Main extends Component {
     };
   }
   componentDidMount() {
-    this.props.setUserInfo();
+    if (!this.props.tabsData.length) {
+      this.props.setUserInfo();
+    }
   }
 
   render() {

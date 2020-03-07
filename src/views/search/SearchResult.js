@@ -80,11 +80,12 @@ class SearchResult extends Component {
         vm._getList();
       });
     if (!res || !res.length) return false;
-    console.log(['res', res]);
+
     let list = res.map(v => {
       let obj = {
         path: v.imgPath,
         title: v.title,
+        item: v,
         columns: [
           {
             render: () => {
@@ -141,11 +142,20 @@ class SearchResult extends Component {
   _renderItem(data) {
     const item = data.item;
     return (
-      <Card
-        key={data.index}
-        image={{path: item.path}}
-        height={parseInt((screenWidth / 4) * 1.2)}
-        columns={item.columns}></Card>
+      <TouchableOpacity
+        onPress={() => {
+          // 跳转详情页
+          this.props.navigation.navigate(
+            'VideoDetail',
+            Object.assign(item.item, {path: item.item.btn[1].path}),
+          );
+        }}>
+        <Card
+          key={data.index}
+          image={{path: item.path}}
+          height={parseInt((screenWidth / 4) * 1.2)}
+          columns={item.columns}></Card>
+      </TouchableOpacity>
     );
   }
   // 立即播放 查看详情
@@ -153,7 +163,6 @@ class SearchResult extends Component {
     if (item.title === '立即播放') {
     }
     if (item.title === '查看详情') {
-      console.log(['查看详情', item]);
       // 跳转详情页
       this.props.navigation.navigate('VideoDetail', item);
     }

@@ -20,7 +20,7 @@ import {
 
 import Toast from '../../components/Toast';
 import unit from '../../services/unit';
-
+import Result from '../../components/Result';
 class TabarDetail extends Component {
   constructor(props) {
     super(props);
@@ -229,29 +229,33 @@ class TabarDetail extends Component {
             styles.flatList,
             {height: height, marginVertical: tabs.length ? 0 : 6},
           ]}>
-          <FlatList
-            numColumns={3}
-            keyExtractor={(item, index) => index.toString()}
-            data={flatListData}
-            renderItem={data => {
-              return this._renderItem(data);
-            }}
-            refreshControl={
-              <RefreshControl
-                title={'loading'}
-                colors={['blue']}
-                refreshing={isLoading}
-                onRefresh={() => {
-                  this.loadData();
-                }}
-              />
-            }
-            ListFooterComponent={() => isLoading && this._genIndicator()}
-            onEndReachedThreshold={0.1}
-            onEndReached={() => {
-              this._onEndReachedloadData();
-            }}
-          />
+          {flatListData.length ? (
+            <FlatList
+              numColumns={3}
+              keyExtractor={(item, index) => index.toString()}
+              data={flatListData}
+              renderItem={data => {
+                return this._renderItem(data);
+              }}
+              refreshControl={
+                <RefreshControl
+                  title={'loading'}
+                  colors={['blue']}
+                  refreshing={isLoading}
+                  onRefresh={() => {
+                    this.loadData();
+                  }}
+                />
+              }
+              ListFooterComponent={() => isLoading && this._genIndicator()}
+              onEndReachedThreshold={0.1}
+              onEndReached={() => {
+                this._onEndReachedloadData();
+              }}
+            />
+          ) : (
+            <Result></Result>
+          )}
         </View>
       </View>
     );
