@@ -6,7 +6,7 @@ import Config from '../config/Config';
 const services = Config.apiConfig.commonBase;
 const services1 = {
   url: 'http://api.245bt.chenzhen.work',
-  port: 3000,
+  port: 80,
 };
 let api = {
   /********************* www.1156zy.com api *****************/
