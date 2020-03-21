@@ -11,7 +11,7 @@
     "postinstall": "jetifier -r",
     "build": "cd android &&  ./gradlew assembleRelease",
     "push": "pushy uploadApk android/app/build/outputs/apk/release/app-release.apk",
-    "updateAndroid": "pushy bundle --platform android Bundling with React Native"
+    "update-android": "pushy bundle --platform android Bundling with React Native"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
