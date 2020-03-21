@@ -82,11 +82,10 @@ class TabarDetail extends Component {
       if (res.tabs.length) {
         height =
           screenHeight -
-            statusBarHeight -
-            headerHeight -
-            bottomHeight -
-            tabBarHeight -
-            20 || 0;
+          statusBarHeight -
+          headerHeight -
+          bottomHeight -
+          tabBarHeight;
       }
       this.setState({tabs: res.tabs || [], height});
     }

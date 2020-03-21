@@ -3,6 +3,16 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator, BottomTabBar} from 'react-navigation-tabs';
 import {connect} from 'react-redux';
+import {Platform, Alert, Linking} from 'react-native';
+import {
+  packageVersion,
+  currentVersion,
+  checkUpdate,
+  downloadUpdate,
+  switchVersion,
+  switchVersionLater,
+} from 'react-native-update';
+import _updateConfig from '../update.json';
 import actionTypes from './store/actionTypes';
 // api
 import api from './api/index';
@@ -46,6 +56,9 @@ const MainNavigator = createStackNavigator(
   },
 );
 const AppContainer = createAppContainer(MainNavigator);
+
+// 热更新key
+const {appKey} = _updateConfig[Platform.OS];
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -53,12 +66,75 @@ class Main extends Component {
       header: [],
     };
   }
-  componentDidMount() {
+
+  async componentDidMount() {
+    if (packageVersion !== currentVersion) {
+      await this.checkUpdate();
+    }
+
     if (!this.props.tabsData.length) {
       this.props.setUserInfo();
     }
   }
-
+  doUpdate = async info => {
+    try {
+      const hash = await downloadUpdate(info);
+      Alert.alert('提示', '下载完毕,是否重启应用?', [
+        {
+          text: '是',
+          onPress: () => {
+            switchVersion(hash);
+          },
+        },
+        {text: '否'},
+        {
+          text: '下次启动时',
+          onPress: () => {
+            switchVersionLater(hash);
+          },
+        },
+      ]);
+    } catch (err) {
+      Alert.alert('提示', '更新失败.');
+    }
+  };
+  checkUpdate = async () => {
+    // if (__DEV__) {
+    //   // 开发模式不支持热更新，跳过检查
+    //   return;
+    // }
+    let info;
+    try {
+      info = await checkUpdate(appKey);
+    } catch (err) {
+      console.warn(err);
+      return;
+    }
+    if (info.expired) {
+      Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本', [
+        {
+          text: '确定',
+          onPress: () => {
+            info.downloadUrl && Linking.openURL(info.downloadUrl);
+          },
+        },
+      ]);
+    } else if (info.update) {
+      Alert.alert(
+        '提示',
+        '检查到新的版本' + info.name + ',是否下载?\n' + info.description,
+        [
+          {
+            text: '是',
+            onPress: () => {
+              this.doUpdate(info);
+            },
+          },
+          {text: '否'},
+        ],
+      );
+    }
+  };
   render() {
     return <AppContainer />;
   }

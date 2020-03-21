@@ -111,7 +111,7 @@ class PlayerList extends Component {
           <View style={{flex: 1}}>
             <WebView
               source={{
-                html: videoUrl,
+                uri: videoUrl,
               }}
             />
           </View>
