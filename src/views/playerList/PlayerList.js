@@ -39,18 +39,17 @@ class PlayerList extends Component {
   }
   _getPlayerUrl = () => {
     let {params} = this.state;
-
-    console.log(['params', params]);
     this.setState(
       {
         loading: true,
       },
       async () => {
-        let res = await global.api.get245BtPlayerUrl(params.path).catch(err => {
-          Toast.show('fail', err);
-        });
+        let res = await global.api
+          .get245BtPlayerUrl({path: params.path})
+          .catch(err => {
+            Toast.show('fail', err);
+          });
 
-        console.log(['_getPlayerUrl', res]);
         if (!res) return false;
         this.setState({
           videoUrl: res.url || '',

@@ -116,7 +116,6 @@ class PlayerVideo extends Component {
     );
   }
   render() {
-    console.log('player');
     return <View>{this._renderVideo()}</View>;
   }
 }

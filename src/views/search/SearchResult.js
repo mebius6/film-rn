@@ -66,19 +66,19 @@ class SearchResult extends Component {
   _getList = async () => {
     let vm = this;
     let {onShow, keyWords, pageIndex, flatListData} = vm.state;
-
+    console.warn(keyWords, onShow);
     if (!keyWords || !onShow) {
       return false;
     }
-    let res = await global.api
-      .search245BtBykeywords('/search.php', {
-        searchword: keyWords,
-        page: pageIndex,
-      })
-      .catch(err => {
-        Toast.show('fail', err);
-        vm._getList();
-      });
+    let params = {
+      searchword: keyWords,
+      page: pageIndex,
+    };
+    console.warn(JSON.stringify(params));
+    let res = await global.api.search245BtBykeywords(params).catch(err => {
+      Toast.show('fail', err);
+      vm._getList();
+    });
     if (!res || !res.length) return false;
 
     let list = res.map(v => {

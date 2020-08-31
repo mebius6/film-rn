@@ -1,12 +1,12 @@
-import http from '../services/http';
+import http from '../services/Http';
 import parse from '../services/parse.js';
 
 import Config from '../config/Config';
-// 公共接口
+// 请求第三方资源
 const services = Config.apiConfig.commonBase;
 const services1 = {
-  url: 'http://api.245bt.chenzhen.work',
-  port: 80,
+  url: 'http://192.168.1.90',
+  port: 5005,
 };
 let api = {
   /********************* www.1156zy.com api *****************/
@@ -53,10 +53,10 @@ let api = {
   // 获得tabs列表
   get245BtHeader: params => {
     return new Promise((resolve, reject) => {
-      return http.get('', params, services1).then(
+      return http.get('/getHeader', params, services1).then(
         res => {
-          return resolve(parse.parse245BtHeader(res));
-          // return resolve(res)
+          // return resolve(parse.parse245BtHeader(res));
+          return resolve(res);
         },
         err => {
           reject(err);
@@ -65,12 +65,12 @@ let api = {
     });
   },
   // 根据tab 拉取list
-  get245BtTabData: (prefix, params) => {
+  get245BtTabData: params => {
     return new Promise((resolve, reject) => {
-      http.get(prefix, params, services1).then(
+      http.get('/getList', params, services1).then(
         res => {
-          return resolve(parse.parse245BtListHtml(res));
-          // return resolve(res)
+          // return resolve(parse.parse245BtListHtml(res));
+          return resolve(res);
         },
         err => {
           reject(err);
@@ -79,12 +79,12 @@ let api = {
     });
   },
   // 获得明细详情
-  get245BtListItem: path => {
+  get245BtListItem: params => {
     return new Promise((resolve, reject) => {
-      http.get(path, {}, services1).then(
+      http.get('/getListItem', params, services1).then(
         res => {
-          return resolve(parse.parse245BtItemHtml(res));
-          // return resolve(res)
+          // return resolve(parse.parse245BtItemHtml(res));
+          return resolve(res);
         },
         err => {
           reject(err);
@@ -93,12 +93,12 @@ let api = {
     });
   },
   // 解析视频url
-  get245BtPlayerUrl: path => {
+  get245BtPlayerUrl: params => {
     return new Promise((resolve, reject) => {
-      http.get(path, {}, services1).then(
+      http.get('/parsePlayerUrl', params, services1).then(
         res => {
-          return resolve(parse.parser245BtPlayerUrl(res));
-          // return resolve(res)
+          // return resolve(parse.parser245BtPlayerUrl(res));
+          return resolve(res);
         },
         err => {
           reject(err);
@@ -107,12 +107,13 @@ let api = {
     });
   },
   // 模糊搜索
-  search245BtBykeywords: (prefix, params) => {
+  search245BtBykeywords: params => {
     return new Promise((resolve, reject) => {
-      http.get(prefix, params, services1).then(
+      // console.warn(['params', params]);
+      http.get('/searchListBywords', params, services1).then(
         res => {
-          return resolve(parse.parse245BtSearchList(res));
-          // return resolve(res)
+          // return resolve(parse.parse245BtSearchList(res));
+          return resolve(res);
         },
         err => {
           reject(err);

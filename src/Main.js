@@ -16,7 +16,7 @@ import _updateConfig from '../update.json';
 import actionTypes from './store/actionTypes';
 // api
 import api from './api/index';
-import http from './services/http';
+import http from './services/Http';
 global.api = api;
 global.http = http;
 //pages
@@ -26,8 +26,8 @@ const tabNavigatorAttr = {
   initialRouteName: 'Film',
   tabBarComponent: BottomTabBar,
   tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
-  swipeEnabled: false, // 是否可以左右滑动切换tab
-  animationEnabled: false, // 切换页面时是否有动画效果
+  swipeEnabled: true, // 是否可以左右滑动切换tab
+  animationEnabled: true, // 切换页面时是否有动画效果
   lazy: true,
   tabBarOptions: {
     inactiveTintColor: '#808080',
@@ -170,4 +170,7 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Main);

@@ -100,7 +100,7 @@ export default class SearchBar extends Component {
   };
   onSubmitEditing = () => {
     let {inputValue} = this.state;
-    console.log(['ress', inputValue]);
+    // console.log(['ress', inputValue]);
     this.props.onSubmitEditing && this.props.onSubmitEditing(inputValue);
   };
   render() {

@@ -73,12 +73,16 @@ class TabarDetail extends Component {
     let item = this.state.tabData.find(v => v.title == this.props.title);
 
     if (item) {
-      let res = await global.api.get245BtTabData(item.path, {}).catch(err => {
-        Toast.show('fail', err);
-        this._getTabBarList();
-      });
+      let res = await global.api
+        .get245BtTabData({path: item.path})
+        .catch(err => {
+          Toast.show('fail', err);
+          // this._getTabBarList();
+        });
       let height =
         screenHeight - headerHeight - statusBarHeight - bottomHeight || 0;
+      console.warn(['list', res]);
+      if (!res || !res instanceof Object) return false;
       if (res.tabs.length) {
         height =
           screenHeight -
@@ -93,6 +97,7 @@ class TabarDetail extends Component {
   _getDefault = async () => {
     let vm = this;
     let {onShow} = vm.state;
+
     if (!onShow) {
       return false;
     }
@@ -112,13 +117,14 @@ class TabarDetail extends Component {
     if (!path || !onShow) {
       return false;
     }
-    let res = await global.api.get245BtTabData(path, {}).catch(err => {
+    let res = await global.api.get245BtTabData({path}).catch(err => {
       Toast.show('fail', err);
       vm._getList(this.state.params.path);
     });
     if (!res || !res.body.length) return false;
     let {flatListData, pageIndex} = this.state;
     let list = res.body || [];
+
     if (pageIndex > 1) {
       list = unit.objectArrayReduce([...flatListData, ...list], 'title');
     }
@@ -155,7 +161,7 @@ class TabarDetail extends Component {
   gridChange(index) {
     let {flatListData} = this.state;
     let item = flatListData[index];
-    console.log(['item', item]);
+    // console.log(['item', item]);
     this.props.navigation.navigate('VideoDetail', item);
   }
   _genIndicator() {

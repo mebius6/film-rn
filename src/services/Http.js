@@ -44,9 +44,11 @@ const formatData = (code, res) => {
 };
 const get = (path, params, {url = '', port = 80, code = false}) => {
   return new Promise((resolve, reject) => {
-    let apiUrl = `${Config.apiUrl}:${port}${Config.apiBaseUrl}${path}`;
+    let apiUrl = `${Config.apiUrl}${port ? ':' + port : ''}${
+      Config.apiBaseUrl
+    }${path}`;
     if (url) {
-      apiUrl = `${url}:${port}${Config.apiBaseUrl}${path}`;
+      apiUrl = `${url}${port ? ':' + port : ''}${Config.apiBaseUrl}${path}`;
     }
     return instance
       .get(apiUrl, {
@@ -80,9 +82,11 @@ const post = (
       headers['Content-type'] = 'application/x-www-form-urlencoded';
     }
 
-    let apiUrl = `${Config.apiUrl}:${port}${Config.apiBaseUrl}${path}`;
+    let apiUrl = `${Config.apiUrl}${port ? ':' + port : ''}${
+      Config.apiBaseUrl
+    }${path}`;
     if (url) {
-      apiUrl = `${url}:${port}${Config.apiBaseUrl}${path}`;
+      apiUrl = `${url}${port ? ':' + port : ''}${Config.apiBaseUrl}${path}`;
     }
 
     return instance

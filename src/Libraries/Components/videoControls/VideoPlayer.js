@@ -201,10 +201,10 @@ export default class VideoPlayer extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.videoUrl !== this.props.videoUrl) {
-      console.log(
-        'componentDidUpdate this.props.videoUrl',
-        this.props.videoUrl,
-      );
+      // console.log(
+      //   'componentDidUpdate this.props.videoUrl',
+      //   this.props.videoUrl,
+      // );
       this.setState({
         mediaType: 'video',
       });
@@ -311,7 +311,7 @@ export default class VideoPlayer extends Component {
    * @param {object} err  Err obj returned from <Video> component
    */
   _onError(err) {
-    console.log('err', err.error);
+    // console.log('err', err.error);
     let state = this.state;
     state.error = true;
     state.loading = false;

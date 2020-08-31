@@ -24,14 +24,16 @@ class VideoDetail extends Component {
   }
   _getDetailList = async () => {
     let {params, body, author, title} = this.state;
-    let res = await global.api.get245BtListItem(params.path).catch(err => {
-      Toast.show('fail', err);
-    });
+    let res = await global.api
+      .get245BtListItem({path: params.path})
+      .catch(err => {
+        Toast.show('fail', err);
+      });
     if (!res) return false;
     title = res.header.map(v => `${v.label} ${v.value}`) || [];
     body = res.body || [];
     author = res.author || '';
-    console.log([{body, author, title}]);
+    // console.log([{body, author, title}]);
     this.setState({body, author, title});
   };
   playItemChange(item, indexs) {
