@@ -71,8 +71,8 @@ class SearchResult extends Component {
       return false;
     }
     let params = {
-      searchword: keyWords,
-      page: pageIndex,
+      keyWords: keyWords,
+      pageIndex: pageIndex,
     };
     console.warn(JSON.stringify(params));
     let res = await global.api.search245BtBykeywords(params).catch(err => {
@@ -99,7 +99,11 @@ class SearchResult extends Component {
                 <View style={[AppStyle.row, AppStyle.flex1]}>
                   <TouchableOpacity
                     onPress={() => {
-                      this.clickBtn(v.btn[0]);
+                      this.clickBtn({
+                        ...v.btn[0],
+                        imgPath: v.imgPath,
+                        name: v.title,
+                      });
                     }}>
                     <Text style={styles.searchBtn}>{v.btn[0].title}</Text>
                   </TouchableOpacity>
@@ -128,6 +132,7 @@ class SearchResult extends Component {
     if (pageIndex > 1) {
       list = unit.objectArrayReduce([...flatListData, ...list], 'title');
     }
+
     this.setState({
       flatListData: list,
       isLoading: false,
@@ -152,17 +157,18 @@ class SearchResult extends Component {
         }}>
         <Card
           key={data.index}
-          image={{path: item.path}}
+          image={{path: data.path}}
           height={parseInt((screenWidth / 4) * 1.2)}
-          columns={item.columns}></Card>
+          columns={item.columns}
+        />
       </TouchableOpacity>
     );
   }
   // 立即播放 查看详情
   clickBtn = item => {
-    if (item.title === '立即播放') {
+    if (item.title === '播放') {
     }
-    if (item.title === '查看详情') {
+    if (item.title === '详情') {
       // 跳转详情页
       this.props.navigation.navigate('VideoDetail', item);
     }
@@ -239,7 +245,8 @@ class SearchResult extends Component {
         <SearchBar
           onChange={this.querySearchBar}
           value={keyWords}
-          onSubmitEditing={this.onSubmitEditing}></SearchBar>
+          onSubmitEditing={this.onSubmitEditing}
+        />
         <View style={[styles.flatList, {height: height, marginVertical: 6}]}>
           {flatListData.length ? (
             <FlatList
