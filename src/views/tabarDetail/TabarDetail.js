@@ -82,7 +82,9 @@ class TabarDetail extends Component {
       let height =
         screenHeight - headerHeight - statusBarHeight - bottomHeight || 0;
       console.warn(['list', res]);
-      if (!res || !res instanceof Object) return false;
+      if (!res || !res instanceof Object) {
+        return false;
+      }
       if (res.tabs.length) {
         height =
           screenHeight -
@@ -121,7 +123,9 @@ class TabarDetail extends Component {
       Toast.show('fail', err);
       vm._getList(this.state.params.path);
     });
-    if (!res || !res.body.length) return false;
+    if (!res || !res.body.length) {
+      return false;
+    }
     let {flatListData, pageIndex} = this.state;
     let list = res.body || [];
 
@@ -154,13 +158,15 @@ class TabarDetail extends Component {
         isShowHeader={
           ['电影', '电视剧'].indexOf(this.props.title) > -1 ? true : false
         }
-        key={item.title}></Grid>
+        key={item.title}
+      />
     );
   }
   // 跳转详情页
   gridChange(index) {
     let {flatListData} = this.state;
     let item = flatListData[index];
+    item.type = 'list';
     // console.log(['item', item]);
     this.props.navigation.navigate('VideoDetail', item);
   }
@@ -227,7 +233,8 @@ class TabarDetail extends Component {
             activeIndex={activeIndex}
             onTabChange={index => {
               this.onTabChange(index);
-            }}></Tab>
+            }}
+          />
         ) : null}
         <View
           style={[
@@ -259,7 +266,7 @@ class TabarDetail extends Component {
               }}
             />
           ) : (
-            <Result></Result>
+            <Result />
           )}
         </View>
       </View>

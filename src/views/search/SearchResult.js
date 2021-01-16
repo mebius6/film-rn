@@ -79,7 +79,9 @@ class SearchResult extends Component {
       Toast.show('fail', err);
       vm._getList();
     });
-    if (!res || !res.length) return false;
+    if (!res || !res.length) {
+      return false;
+    }
 
     let list = res.map(v => {
       let obj = {
@@ -152,7 +154,10 @@ class SearchResult extends Component {
           // 跳转详情页
           this.props.navigation.navigate(
             'VideoDetail',
-            Object.assign(item.item, {path: item.item.btn[1].path}),
+            Object.assign(item.item, {
+              path: item.item.btn[1].path,
+              type: 'search',
+            }),
           );
         }}>
         <Card
