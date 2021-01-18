@@ -79,7 +79,9 @@ class SearchResult extends Component {
       Toast.show('fail', err);
       vm._getList();
     });
-    if (!res || !res.length) return false;
+    if (!res || !res.length) {
+      return false;
+    }
 
     let list = res.map(v => {
       let obj = {

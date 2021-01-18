@@ -4,10 +4,6 @@ import parse from '../services/parse.js';
 import Config from '../config/Config';
 // 请求第三方资源
 const services = Config.apiConfig.commonBase;
-const services1 = {
-  url: 'http://film.chenzhen.work',
-  port: 80,
-};
 let api = {
   /********************* www.1156zy.com api *****************/
 
@@ -53,7 +49,7 @@ let api = {
   // 获得tabs列表
   get245BtHeader: params => {
     return new Promise((resolve, reject) => {
-      return http.get('/getHeader', params, services1).then(
+      return http.get('/getHeader', params, services).then(
         res => {
           // return resolve(parse.parse245BtHeader(res));
           return resolve(res);
@@ -67,7 +63,7 @@ let api = {
   // 根据tab 拉取list
   get245BtTabData: params => {
     return new Promise((resolve, reject) => {
-      http.get('/getList', params, services1).then(
+      http.get('/getList', params, services).then(
         res => {
           // return resolve(parse.parse245BtListHtml(res));
           return resolve(res);
@@ -81,7 +77,7 @@ let api = {
   // 获得明细详情
   get245BtListItem: params => {
     return new Promise((resolve, reject) => {
-      http.get('/getListItem', params, services1).then(
+      http.get('/getListItem', params, services).then(
         res => {
           // return resolve(parse.parse245BtItemHtml(res));
           return resolve(res);
@@ -95,7 +91,7 @@ let api = {
   // 解析视频url
   get245BtPlayerUrl: params => {
     return new Promise((resolve, reject) => {
-      http.get('/parsePlayerUrl', params, services1).then(
+      http.get('/parsePlayerUrl', params, services).then(
         res => {
           // return resolve(parse.parser245BtPlayerUrl(res));
           return resolve(res);
@@ -110,7 +106,7 @@ let api = {
   search245BtBykeywords: params => {
     return new Promise((resolve, reject) => {
       // console.warn(['params', params]);
-      http.get('/searchListBywords', params, services1).then(
+      http.get('/searchListBywords', params, services).then(
         res => {
           // return resolve(parse.parse245BtSearchList(res));
           return resolve(res);

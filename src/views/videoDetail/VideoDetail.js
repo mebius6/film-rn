@@ -29,7 +29,9 @@ class VideoDetail extends Component {
       .catch(err => {
         Toast.show('fail', err);
       });
-    if (!res) return false;
+    if (!res) {
+      return false;
+    }
     title = res.header.map(v => `${v.label} ${v.value}`) || [];
     body = res.body || [];
     author = res.author || '';

@@ -4,12 +4,24 @@ const version = '1.0.0';
 const bundleVersion = '20190426';
 
 const loadingText = 'loading...';
-// 服务接口地址
-const services = {
-  commonBase: {
+// 环境设定 【dev、prod】
+const environment = 'prod';
+
+// 接口相关
+const urls = {
+  dev: {
+    url: 'http://127.0.0.1',
+    port: 5000,
+  },
+
+  prod: {
     url: 'http://film.chenzhen.work',
     port: 80,
   },
+};
+// 服务接口地址
+const services = {
+  commonBase: urls[environment],
 };
 
 module.exports = {

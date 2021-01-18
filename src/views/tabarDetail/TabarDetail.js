@@ -82,7 +82,9 @@ class TabarDetail extends Component {
       let height =
         screenHeight - headerHeight - statusBarHeight - bottomHeight || 0;
       console.warn(['list', res]);
-      if (!res || !res instanceof Object) return false;
+      if (!res || !res instanceof Object) {
+        return false;
+      }
       if (res.tabs.length) {
         height =
           screenHeight -
@@ -121,7 +123,9 @@ class TabarDetail extends Component {
       Toast.show('fail', err);
       vm._getList(this.state.params.path);
     });
-    if (!res || !res.body.length) return false;
+    if (!res || !res.body.length) {
+      return false;
+    }
     let {flatListData, pageIndex} = this.state;
     let list = res.body || [];
 
