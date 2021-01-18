@@ -154,13 +154,15 @@ class TabarDetail extends Component {
         isShowHeader={
           ['电影', '电视剧'].indexOf(this.props.title) > -1 ? true : false
         }
-        key={item.title}></Grid>
+        key={item.title}
+      />
     );
   }
   // 跳转详情页
   gridChange(index) {
     let {flatListData} = this.state;
     let item = flatListData[index];
+    item.search = false;
     // console.log(['item', item]);
     this.props.navigation.navigate('VideoDetail', item);
   }
@@ -227,7 +229,8 @@ class TabarDetail extends Component {
             activeIndex={activeIndex}
             onTabChange={index => {
               this.onTabChange(index);
-            }}></Tab>
+            }}
+          />
         ) : null}
         <View
           style={[
@@ -259,7 +262,7 @@ class TabarDetail extends Component {
               }}
             />
           ) : (
-            <Result></Result>
+            <Result />
           )}
         </View>
       </View>

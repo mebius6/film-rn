@@ -25,7 +25,7 @@ class VideoDetail extends Component {
   _getDetailList = async () => {
     let {params, body, author, title} = this.state;
     let res = await global.api
-      .get245BtListItem({path: params.path})
+      .get245BtListItem({path: params.path, search: params.search})
       .catch(err => {
         Toast.show('fail', err);
       });
@@ -62,13 +62,14 @@ class VideoDetail extends Component {
             </TouchableOpacity>
           }
         />
-        <Card image={{path: params.imgPath}} columns={title}></Card>
+        <Card image={{path: params.imgPath}} columns={title} />
         <View style={styles.container}>
           <Episode
             data={body}
             onChange={(item, indexs) => {
               this.playItemChange({...item, name: author}, indexs);
-            }}></Episode>
+            }}
+          />
         </View>
       </SafeAreaView>
     );

@@ -45,7 +45,7 @@ class PlayerList extends Component {
       },
       async () => {
         let res = await global.api
-          .get245BtPlayerUrl({path: params.path})
+          .get245BtPlayerUrl({path: params.path,search:params.search})
           .catch(err => {
             Toast.show('fail', err);
           });

@@ -7,15 +7,15 @@ const loadingText = 'loading...';
 // 服务接口地址
 const services = {
   commonBase: {
-    url: 'http://192.168.1.90',
-    port: 5005,
+    url: 'http://film.chenzhen.work',
+    port: 80,
   },
 };
 
 module.exports = {
   bundleVersion: bundleVersion,
   version: version,
-  apiUrl: 'http://192.168.1.90',
+  apiUrl: 'http://film.chenzhen.work',
   apiBaseUrl: '/film',
   apiConfig: services,
   loadingText,

@@ -5,8 +5,8 @@ import Config from '../config/Config';
 // 请求第三方资源
 const services = Config.apiConfig.commonBase;
 const services1 = {
-  url: 'http://192.168.1.90',
-  port: 5005,
+  url: 'http://film.chenzhen.work',
+  port: 80,
 };
 let api = {
   /********************* www.1156zy.com api *****************/

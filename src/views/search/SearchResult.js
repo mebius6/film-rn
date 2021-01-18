@@ -146,13 +146,17 @@ class SearchResult extends Component {
   };
   _renderItem(data) {
     const item = data.item;
+    console.warn(['data', data]);
     return (
       <TouchableOpacity
         onPress={() => {
           // 跳转详情页
           this.props.navigation.navigate(
             'VideoDetail',
-            Object.assign(item.item, {path: item.item.btn[1].path}),
+            Object.assign(item.item, {
+              path: item.item.btn[1].path,
+              search: true, //从搜索页跳详情 为true
+            }),
           );
         }}>
         <Card
@@ -170,6 +174,7 @@ class SearchResult extends Component {
     }
     if (item.title === '详情') {
       // 跳转详情页
+      item.search = true;
       this.props.navigation.navigate('VideoDetail', item);
     }
   };
