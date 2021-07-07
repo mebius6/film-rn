@@ -6,6 +6,7 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -42,33 +43,35 @@ export default class Header extends Component {
     showTitle: true,
     hidden: false,
   };
-
+  // iPhone X、iPhone XS: 375 812
+  // iPhone XR、iPhone XS Max: 414 896
   isIphoneX() {
-    // 375 812
     let dimen = Dimensions.get('window');
+    const iphoneDimen =
+      dimen.height === 812 ||
+      dimen.width === 812 ||
+      dimen.height === 896 ||
+      dimen.width === 896;
     return (
       Platform.OS === 'ios' &&
       !Platform.isPad &&
       !Platform.isTVOS &&
-      ((dimen.height === 812 && dimen.width === 375) ||
-        (dimen.width === 812 && dimen.height === 375))
+      iphoneDimen
     );
   }
 
-  // before render
-  UNSAFE_componentWillMount() {
-    this.statusBarHeight =
+  statusBarHeight() {
+    let height =
       Platform.OS === 'ios'
         ? this.isIphoneX()
-          ? 44
+          ? 48
           : 20
         : StatusBar.currentHeight;
-    // android version is less then 5.0.1
     if (Platform.OS === 'android' && Platform.Version < 21) {
-      this.statusBarHeight = 0;
+      height = 0;
     }
+    return height;
   }
-
   render() {
     const {
       style,
@@ -83,24 +86,21 @@ export default class Header extends Component {
       headerLeft,
       headerCenter,
       headerRight,
-      hidden,
     } = this.props;
-
+    const barViewStyle = [
+      {height: showStatusBar ? this.statusBarHeight() : 0},
+      statusBarStyle,
+    ];
     return (
-      <View style={style}>
+      <SafeAreaView style={style}>
         <StatusBar
           backgroundColor={'transparent'}
           translucent={true}
-          hidden={hidden}
+          hidden={!showStatusBar}
           showHideTransition={'fade'}
           barStyle={barStyle}
         />
-        <View
-          style={[
-            {height: showStatusBar ? this.statusBarHeight : 0},
-            statusBarStyle,
-          ]}
-        />
+        <View style={barViewStyle} />
         <View style={[styles.header, styles.row, headerStyle]}>
           <View style={[styles.headerLeft, styles.row, leftStyle]}>
             {headerLeft}
@@ -116,7 +116,7 @@ export default class Header extends Component {
             {headerRight}
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
