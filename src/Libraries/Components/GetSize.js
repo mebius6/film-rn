@@ -1,14 +1,14 @@
-import { Platform, StatusBar, Dimensions } from 'react-native';
+import {Platform, StatusBar, Dimensions} from 'react-native';
 
 function isIphoneX() {
-  // 375 812
   let dimen = Dimensions.get('window');
+  const iphoneDimen =
+    dimen.height === 812 ||
+    dimen.width === 812 ||
+    dimen.height === 896 ||
+    dimen.width === 896;
   return (
-    Platform.OS === 'ios' &&
-    !Platform.isPad &&
-    !Platform.isTVOS &&
-    ((dimen.height === 812 && dimen.width === 375) ||
-      (dimen.width === 812 && dimen.height === 375))
+    Platform.OS === 'ios' && !Platform.isPad && !Platform.isTVOS && iphoneDimen
   );
 }
 
@@ -19,12 +19,12 @@ if (Platform.OS === 'android' && Platform.Version < 21) {
   statusBarHeight = 0;
 }
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 let screenWidth = width,
   screenHeight = height;
 
 module.exports = {
   statusBarHeight,
   screenWidth,
-  screenHeight
+  screenHeight,
 };

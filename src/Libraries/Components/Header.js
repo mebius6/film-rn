@@ -6,7 +6,6 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
-  SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -82,6 +81,7 @@ export default class Header extends Component {
       statusBarStyle,
       barStyle,
       title,
+      hidden,
       showTitle,
       headerLeft,
       headerCenter,
@@ -92,11 +92,11 @@ export default class Header extends Component {
       statusBarStyle,
     ];
     return (
-      <SafeAreaView style={style}>
+      <View style={style}>
         <StatusBar
           backgroundColor={'transparent'}
           translucent={true}
-          hidden={!showStatusBar}
+          hidden={hidden}
           showHideTransition={'fade'}
           barStyle={barStyle}
         />
@@ -116,7 +116,7 @@ export default class Header extends Component {
             {headerRight}
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
