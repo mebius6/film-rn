@@ -96,7 +96,7 @@ export default class Header extends Component {
         <StatusBar
           backgroundColor={'transparent'}
           translucent={true}
-          hidden={hidden}
+          hidden={Platform.OS === 'ios' ? true : hidden}
           showHideTransition={'fade'}
           barStyle={barStyle}
         />

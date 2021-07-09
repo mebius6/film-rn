@@ -45,7 +45,7 @@ class PlayerList extends Component {
       },
       async () => {
         let res = await global.api
-          .get245BtPlayerUrl({path: params.path,search:params.search})
+          .get245BtPlayerUrl({path: params.path, search: params.search})
           .catch(err => {
             Toast.show('fail', err);
           });
@@ -77,8 +77,9 @@ class PlayerList extends Component {
     return (
       <SafeAreaView style={AppStyle.container}>
         <StatusBar
-          hidden={hiddenStatusBar}
-          showHideTransition={'fade'}></StatusBar>
+          hidden={Platform.OS === 'ios' ? true : hiddenStatusBar}
+          showHideTransition={'fade'}
+        />
         {videoUrl.endsWith('.m3u8') ? (
           <VideoPlayer
             videoUrl={videoUrl}
@@ -87,14 +88,9 @@ class PlayerList extends Component {
             fullscreenOrientation={'landscape'} //landscape portrait
             loading={loading}
             onPressFullScreenBtn={() => {
-              if (Platform.OS === 'android') {
-                this._onPressFullScreenBtn();
-              } else {
-                this.setState({
-                  fullscreen: true,
-                });
-              }
+              this._onPressFullScreenBtn();
             }}
+            // 全屏停止前的回调
             onFullscreenPlayerWillDismiss={() => {
               this.setState({
                 fullscreen: false,
@@ -102,10 +98,9 @@ class PlayerList extends Component {
             }}
             is_full_screen={androidFullscreen}
             onBack={() => {
-              if (Platform.OS === 'android') {
-                this._onPressFullScreenBtn();
-              }
-            }}></VideoPlayer>
+              this._onPressFullScreenBtn();
+            }}
+          />
         ) : (
           <View style={{flex: 1}}>
             <WebView
@@ -126,7 +121,8 @@ class PlayerList extends Component {
                 this.setState({params}, () => {
                   this._getPlayerUrl();
                 });
-              }}></Episode>
+              }}
+            />
           </View>
         ) : null}
       </SafeAreaView>
